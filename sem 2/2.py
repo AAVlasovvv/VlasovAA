@@ -14,4 +14,4 @@ for j in range (len(A)):
     B.append(A[j][::-1])
     #print(B)
 res = ''.join(B)
-print(res)
+print(res) 

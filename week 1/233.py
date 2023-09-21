@@ -1,1 +1,3 @@
-print(9/3)
+A = 'rtrtrtrt'
+A = A.replace('r', '1')
+print(A)
