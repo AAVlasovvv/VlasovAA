@@ -1,26 +1,33 @@
-import numpy as np
+#МНК для лаб
 
-numbers = list(map(int, input().split()))
-x, y = numbers[0], numbers[1]
-def mnk(x, y):
-    size = len(x)
-    
-    vec = np.empty((2, 1))
-    vec[0] = sum((x[i] * y[i]) for i in range(0, size))
-    vec[1] = sum((y[i]) for i in range(0, size))
-    
-    matr = np.empty((2, 2))
-    matr[[0], [0]] = sum((x[i]) ** 2 for i in range(0, size))
-    matr[[0], [1]] = sum(x)
-    matr[[1], [0]] = sum(x)
-    matr[[1], [1]] = size
-    
-    opposite = np.linalg.inv(A)
-    
-    ab = np.dot(opposite, vec)
-    a = ab[0]
-    b = ab[1]
+from statistics import mean
+import matplotlib.pyplot as plt
+
+with open("exp.txt", "r") as fin:
+    data = fin.readlines()
+
+I = [float(line.split()[0]) for line in data[1:]]
+V = [float(line.split()[1]) for line in data[1:]]
+
+
+def least_squares(xdata, ydata):
+    a = (sum([x * y for x, y in zip(xdata, ydata)]) - mean(ydata) * sum(xdata)) / (sum([x ** 2 for x in xdata]) - mean(xdata) * sum(xdata))
+    b = mean(ydata) - a * mean(xdata)
     
     return a, b
 
-print(x,y)
+
+print(least_squares(I, V))
+
+a, b = least_squares(I, V)
+
+fig, ax = plt.subplots()
+ax.plot(I, V, 'o', label="Данные эксперимента")
+
+xdata = list(range(0, 21))
+ax.plot(xdata, [a * x + b for x in xdata], label="Аппроксимация")
+ax.set_ylabel("Напряжение, V")
+ax.set_xlabel("Сила тока, A")
+ax.legend()
+#plt.savefig("fig1.png")
+plt.show()
