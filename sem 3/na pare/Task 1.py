@@ -1,4 +1,5 @@
 def fib(N, fibs):
+    
     if N == 0:
         fibs[0] = 0
         return 0
@@ -11,7 +12,7 @@ def fib(N, fibs):
     #fib(N-1, fibs)
 
     fibs[N-1] = fib(N-1, fibs) + fib(N-2, fibs)
-    print(fibs)
+    #print(fibs)
     return fibs[N-1]
 
 
@@ -22,6 +23,6 @@ def fib(N, fibs):
     #return res
 #fibs = [0 for i in range(N)]
 #fib(5)
-N=500
+N=10
 fibs = [0 for i in range(N)]
-print(fib(N, fibs))
+print(fib(N-1, fibs))
