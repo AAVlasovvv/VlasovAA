@@ -9,30 +9,62 @@ SepalWidth = list(df['SepalWidthCm'])
 PetalLength = list(df['PetalLengthCm'])
 PetalWidth = list(df['PetalWidthCm'])
 
-x1 = np.array(SepalLength)
-y1 = np.array(SepalWidth)
+SL = np.array(SepalLength)
+SW = np.array(SepalWidth)
 
-x2 = np.array(PetalLength)
-y2 = np.array(PetalWidth)
+PL = np.array(PetalLength)
+PW = np.array(PetalWidth)
 
-A1 = np.vstack([x1, np.ones(len(x1))]).T
-m1, c1 = np.linalg.lstsq(A1, y1, rcond=None)[0]
+fig, ax = plt.subplots(3, 2)
+fig.tight_layout(h_pad= 2)
 
-fig = plt.figure(figsize=(20,6 ))
-ax1 = fig.add_subplot(121)
-ax2 = fig.add_subplot(122)
-ax1.plot(x1, y1, 'o', label='Данные', markersize=3)
-ax1.plot(x1, m1 * x1 + c1, 'r' ,linewidth=3, label='Аппроксимация')
-ax1.set_title('Комбинации длин и ширин чашелистников (Sepal)')
-ax1.grid()
+ax[0, 0].set_title('Комбинации длин(OX) и ширин чашелистников(OY)')
+ax[0, 1].set_title('Комбинации длин чашелистников(OX) и длин лепестков(OY)')
+ax[1, 0].set_title('Комбинации длин(OX) и ширин лепестков(OY)')
+ax[1, 1].set_title('Комбинации ширин чашелистников(OX) и длин лепестков(OY)')
+ax[2, 0].set_title('Комбинации ширин чашелистников(OX) и ширин лепестоков(OY)')
+ax[2, 1].set_title('Комбинации длин(OX) и ширин лепестков(OY)')
 
-A2 = np.vstack([x2, np.ones(len(x2))]).T
-m2, c2 = np.linalg.lstsq(A2, y2, rcond=None)[0]
-ax2.plot(x2, y2, 'o', label='Данные', markersize=3)
-ax2.plot(x2, m2 * x2 + c2,'r' , linewidth=3, label='Аппроксимация')
-ax2.set_title('Комбинации длин и ширин лепестков (Petal)')
-ax2.grid()
+ax[0, 0].plot(SL, SW, 'o', label='Данные', markersize=2)
+ax[0, 1].plot(SL, PL, 'o', label='Данные', markersize=2)
+ax[1, 0].plot(SL, PW, 'o', label='Данные', markersize=2)
+ax[1, 1].plot(SW, PL, 'o', label='Данные', markersize=2)
+ax[2, 0].plot(SW, PW, 'o', label='Данные', markersize=2)
+ax[2, 1].plot(PL, PW, 'o', label='Данные', markersize=2)
 
-fig.show()
+A1 = np.vstack([SL, np.ones(len(SL))]).T
+m1, c1 = np.linalg.lstsq(A1, SW, rcond=None)[0]
+
+A2 = np.vstack([SL, np.ones(len(SL))]).T
+m2, c2 = np.linalg.lstsq(A2, PL, rcond=None)[0]
+
+A3 = np.vstack([SL, np.ones(len(SL))]).T
+m3, c3 = np.linalg.lstsq(A3, PW, rcond=None)[0]
+
+A4 = np.vstack([SW, np.ones(len(SW))]).T
+m4, c4 = np.linalg.lstsq(A4, PL, rcond=None)[0]
+
+A5 = np.vstack([SW, np.ones(len(SW))]).T
+m5, c5 = np.linalg.lstsq(A5, PW, rcond=None)[0]
+
+A6 = np.vstack([PL, np.ones(len(PL))]).T
+m6, c6 = np.linalg.lstsq(A6, PW, rcond=None)[0]
+
+ax[0, 0].plot(SL, m1 * SL + c1, 'r' ,linewidth=1, label='Аппроксимация')
+ax[0, 1].plot(SL, m2 * SL + c2, 'r' ,linewidth=1, label='Аппроксимация')
+ax[1, 0].plot(SL, m3 * SL + c3, 'r' ,linewidth=1, label='Аппроксимация')
+ax[1, 1].plot(SW, m4 * SW + c4, 'r' ,linewidth=1, label='Аппроксимация')
+ax[2, 0].plot(SW, m5 * SW + c5, 'r' ,linewidth=1, label='Аппроксимация')
+ax[2, 1].plot(PL, m6 * PL + c6, 'r' ,linewidth=1, label='Аппроксимация')
+
+ax[0, 0].grid()
+ax[0, 1].grid()
+ax[1, 0].grid()
+ax[1, 1].grid()
+ax[2, 0].grid()
+ax[2, 1].grid()
+
+fig.suptitle('Подгониан')
+plt.subplots_adjust(top= 0.86 )
+
 plt.show()
-

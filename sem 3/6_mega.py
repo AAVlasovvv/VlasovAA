@@ -14,7 +14,7 @@ y = np.array(V)
 
 A = np.vstack([x, np.ones(len(x))]).T
 m, c = np.linalg.lstsq(A, y, rcond=None)[0]
-plt.plot(x, y, 'o', label='Данные', markersize=8)
+plt.plot(x, y, 'o', label='Данные', markersize=6)
 plt.plot(x, m * x + c, 'r', label='Аппроксимация')
 plt.legend()
 plt.show()
