@@ -2,7 +2,7 @@ s = input().split()
 n, m = int(s[0]), int(s[1])
 #n, m = 7, 6
 matrix = [[0 for i in range(n)] for i in range(m)]
-print(matrix)
+#print(matrix)
 matrix[0][0] = 1
 
 x, y = 0, 0
@@ -36,3 +36,26 @@ for i in range(m):
     for j in range(n):
         print(str(matrix[i][j]).ljust(3), end=" ")
     print()
+
+
+
+matrix1 = matrix
+
+#print(matrix1)
+
+print('-' * 1000)
+
+for k in range(m):
+    for l in range(n):
+        matrix1[k][l] = int(matrix[k][l])*(k+1)
+    
+
+#print(matrix1)
+for i in range(m):
+    for j in range(n):
+        print(str(matrix1[i][j]).ljust(3), end=" ")
+    print()
+    
+
+
+
