@@ -26,12 +26,16 @@ class Ball():
         self.r = 10
         self.vx = 0
         self.vy = 0
-        self.color = choice(['blue', 'green', 'red', 'brown'])
+        self.color = choice(['blue', 'green', 'yellow', 'brown'])
         self.id = canv.create_oval(self.x - self.r, self.y - self.r, self.x + self.r, self.y + self.r, fill=self.color)
         self.live = 30
     
     def set_coords(self):
         canv.coords(self.id, self.x - self.r, self.y - self.r, self.x + self.r, self.y + self.r)
+    
+    def delete_ball(self):
+        """ Функция удаляет шарик из canvas. """
+        canv.delete(self.id)
     
     def move(self):
         """ Метод move описывает перемещение мяча за один кадр перерисовки. То есть, обновляет значения
@@ -54,6 +58,8 @@ class Ball():
             self.y = 550
         if self.y > 551:
             self.vy += 1
+        # if abs(self.vx) < 0.1:
+        #     root.after(1000, self.delete_ball)
         
     
     def hittest(self, ob):
@@ -66,9 +72,11 @@ class Ball():
         """
         if (self.r + ob.r) >= (abs(self.x - ob.x) ** 2 + abs(self.y - ob.y) ** 2) ** 0.5:
             return True
+        else:
+            return False
+    
+    
         
-        # TODO
-        return False
 
 
 class gun():
@@ -144,8 +152,8 @@ class target():
         canv.coords(self.id, -10, -10, -10, -10)
         self.points += points
         canv.itemconfig(self.id_points, text=self.points)
-        return self.new_target()
-        # return self.new_game()
+
+        return
 
 
 t1 = target()
@@ -155,18 +163,21 @@ bullet = 0
 balls = []
 
 
-def new_game():
-    global gun, t1, screen1, balls, bullet
+def new_game(event=''):
     
+    global gun, t1, screen1, balls, bullet
+    canv.itemconfig(screen1, text='')
     t1.new_target()
     bullet = 0
     balls = []
     canv.bind('<Button-1>', g1.fire2_start)
     canv.bind('<ButtonRelease-1>', g1.fire2_end)
     canv.bind('<Motion>', g1.targetting)
+    t1.live = 1
     
     z = 0.03
     t1.live = 1
+    # while t1.live or balls:
     while t1.live or balls:
         for b in balls:
             b.move()
@@ -177,14 +188,32 @@ def new_game():
                 canv.bind('<Button-1>', g1.fire2_start)
                 canv.bind('<ButtonRelease-1>', g1.fire2_end)
                 canv.itemconfig(screen1, text='Вы уничтожили цель за ' + str(bullet) + ' выстрелов')
+                
+                # root.after(2000, new_game)
+            if abs(b.vx) < 0.1:
+                root.after(400, b.delete_ball)
+                # root.after(500, balls.remove(b))
+                # time.sleep(0.5)
+                balls.remove(b)
+                
+                
+                
+                # root.after(2000, new_game)
                 # t1.new_target()
+                # print(balls)
         canv.update()
         time.sleep(0.03)
         g1.targetting()
         g1.power_up()
+        
     canv.itemconfig(screen1, text='')
     canv.delete(gun)
-    root.after(150, new_game)
+    root.after(420, new_game)
+    # canv.delete('all')
+    # new_game()
+    
+    
+    # root.after(2000, new_game)
 
 
 new_game()
