@@ -72,5 +72,7 @@ def find_kth(A, k):
     else:
         return find_kth(R, k - len(L)-1)
     
-test = [1,2,3,4,5]
-print(find_kth(test,(len(test)//2+1)))
+# test = [1,2,3,4,5]
+# test = [15, 17, 16, 18]
+test = [7, 17, 16, 18, 12, 8, 11, 22]
+print(find_kth(test, (len(test)//2+1)))
