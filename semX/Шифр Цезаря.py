@@ -8,19 +8,25 @@ class Caesar:
             encoded = self.alphabet[(i + key) % len(self.alphabet)]
             self._encode[letter] = encoded
             self._encode[letter.upper()] = encoded.upper()
-        self._decode = {}  # TODO
+        self._decode = dict()
+        for i in range(len(self.alphabet)):
+            letter = self.alphabet[i]
+            decoded = self.alphabet[(i - key) % len(self.alphabet)]
+            self._decode[letter] = decoded
+            self._decode[letter.upper()] = decoded.upper()
+        
     
     def encode(self, text):
         return ''.join([self._encode.get(char, char) for char in text])
     
     def decode(self, line):
-        pass  # TODO
+        return ''.join([self._decode.get(char, char) for char in line])
 
 
-# key = int(input('Ээъыцмъ фубз:'))
+# key = int(input('Введите ключ:'))
 # cipher = Caesar(key)
-cipher = Caesar(19)
+cipher = Caesar(14)
 line = input()
 while line:
-    print(cipher.encode(line))
+    print(cipher.decode(line))
     line = input()

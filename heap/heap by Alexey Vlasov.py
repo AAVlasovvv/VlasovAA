@@ -71,20 +71,27 @@ class Heap:
         return result
     
     
-    def heapsort(self, number):
-        array = self._heap[number:]
-        self._heap = array[:]
-        # self.sorting(self._heap, 0, len(array))
-        # # print(self._heap)
-        current_index = len(self._heap) // 2 - 1
-        while current_index >= 0:
-            self._moving_down(current_index)
-            current_index = current_index - 1
-        
-        print('Вывод списком:', *self._heap)
-        print('Вывод деревом:')
-        print(self.__str__())
-        return
+    def heapsort(self):
+        list = []
+        array = self._heap
+        counter = 0
+        length = len(self._heap)
+        while counter != length:
+            self.building_heap(array)
+            array = self._heap
+            list.append(array[0])
+            # print('list', list)
+            array = array[1:]
+            # print('array', array)
+            counter += 1
+            # print('counter', counter)
+    
+        # print(list)
+        self._heap = list
+        print(*list)
+        return ''
+    
+    
     
     def __repr__(self):
         value_list = self._heap
@@ -135,5 +142,5 @@ heap.pop()
 print(heap)
 print(*heap._heap)
 print('-'*100)
-heap.heapsort(3)
+heap.heapsort()
 print('-'*100)
