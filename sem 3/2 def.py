@@ -1,13 +1,3 @@
-# n = int(input())
-# i = 2
-# prostmn = []
-# while i <= n:
-#     if n % i == 0:
-#         prostmn.append(i)
-#         n = n / i
-#     else:
-#         i +=1
-# print(prostmn)
 
 def prostmn(i,num):
     if num == 1:
@@ -20,5 +10,3 @@ def prostmn(i,num):
 
 num = int(input())
 prostmn(2,num)
-#mn = []
-#print(mn)

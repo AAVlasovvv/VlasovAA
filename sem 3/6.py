@@ -3,7 +3,7 @@
 from statistics import mean
 import matplotlib.pyplot as plt
 
-with open("exp.txt", "r") as fin:
+with open("1.2.5.data_1.txt", "r") as fin:
     data = fin.readlines()
 
 I = [float(line.split()[0]) for line in data[1:]]
