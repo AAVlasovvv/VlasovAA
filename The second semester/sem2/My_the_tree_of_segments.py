@@ -53,17 +53,19 @@ class SegmentTree:
     def __getitem__(self, idx):
         return self.data[idx]
     
-    def update(self, index, new_item):
+    def update(self, left_border, right_border, value):
         if int(self.neutral_elements) == 0:
-            self.data.insert(index, new_item)
+            for i in range(left_border, right_border+1):
+                self.data[i] += value
             self.build_tree()
         else:
             del self.data[-(int(self.neutral_elements)):]
-            self.data.insert(index, new_item)
+            for i in range(left_border, right_border + 1):
+                self.data[i] += value
             self.build_tree()
             
 
-tree = SegmentTree([1, 2, 3, 4, 5, 6, 7,8])
+tree = SegmentTree([1, 2, 3, 4, 5, 6, 7, 8])
 print(tree.data)
 
 print(tree.query(0, 7))
@@ -71,7 +73,7 @@ print(tree.query(0, 7))
 print(tree.tree)
 print(tree.data)
 
-tree.update(2,45)
+tree.update(0,4,5)
 
 print(tree.data)
 print(tree.tree)
