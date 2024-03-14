@@ -39,7 +39,7 @@ class FenwickTree:
 
 # Usage
 
-fenwick_tree = FenwickTree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+fenwick_tree = FenwickTree([1, 2, 3, 4, 5, 6, 7, 8])
 
 print(fenwick_tree.tree)
 print(fenwick_tree.data)
